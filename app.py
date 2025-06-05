@@ -21,7 +21,7 @@ euribor3m = st.number_input("3-Month Euribor Rate", format="%.2f", value=4.85)
 
 emp_var_rate = st.number_input("Employment Variation Rate", format="%.2f", value=-1.8)
 
-nr_employed = st.number_input("Number of People Employed", format="%.1f", value=5099.1)
+#nr_employed = st.number_input("Number of People Employed", format="%.1f", value=5099.1)
 
 housing = st.selectbox("Has Housing Loan?", ['yes', 'no'])
 
@@ -36,7 +36,7 @@ input_data = pd.DataFrame({
     'pdays': [pdays],
     'euribor3m': [euribor3m],
     'emp.var.rate': [emp_var_rate],
-    'nr.employed': [nr_employed],
+    #'nr.employed': [nr_employed],
     'housing_yes': [1 if housing == 'yes' else 0],
     'loan_yes': [1 if loan == 'yes' else 0]
 })
@@ -50,7 +50,7 @@ for col in columns:
 input_data = input_data[columns]
 
 # ====== PREDICTION ======
-if st.button("Predict Subscription Likelihood"):
+if st.button("Predict"):
     pred = model.predict(input_data)[0]
     prob = model.predict_proba(input_data)[0][1]
 

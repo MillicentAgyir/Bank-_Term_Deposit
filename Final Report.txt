@@ -1,0 +1,105 @@
+# 📄 Term Deposit Subscription Prediction: Final Report
+
+## 1. Introduction & Business Problem
+
+Banking institutions often run direct marketing campaigns to promote term deposit products. However, the cost of contacting all clients can be high, and the success rate is typically low. The goal of this project is to build a predictive model that identifies clients who are more likely to subscribe to a term deposit, thereby increasing campaign efficiency and reducing costs.
+
+---
+
+## 2. Exploratory Data Analysis (EDA) Summary
+
+* **Dataset Used:** `bank-additional-full.csv` from UCI Machine Learning Repository
+* **Total Rows:** 41,188
+* **Target Variable:** `y` (whether the client subscribed: "yes" or "no")
+
+### Key Observations:
+
+* **Target imbalance:** \~88% of clients did not subscribe.
+* **Job, marital status, and education** showed strong patterns in subscription likelihood.
+* Clients with jobs like `student` and `retired` had higher subscription rates.
+* **Numerical features** like `age`, `campaign`, and `duration` were skewed.
+* `duration` was dropped due to being a post-outcome leakage variable.
+
+---
+
+## 3. Data Cleaning & Feature Engineering
+
+### Cleaning Steps:
+
+* Checked and confirmed no missing values.
+* Dropped `duration` to prevent target leakage.
+* Capped outliers in `campaign` at 10.
+
+### Feature Engineering:
+
+* One-hot encoded all categorical variables.
+* Created a final feature subset with the 8 most important predictors:
+
+  * `age`, `campaign`, `pdays`, `euribor3m`, `emp.var.rate`, `nr.employed`, `housing_yes`, `loan_yes`
+
+---
+
+## 4. Model Comparisons
+
+| Model               | Accuracy | Recall (Subscribed) | Precision | F1 Score |
+| ------------------- | -------- | ------------------- | --------- | -------- |
+| Logistic Regression | 83%      | **65%**             | 37%       | **0.47** |
+| Logistic + SMOTE    | 85%      | 42%                 | 35%       | 0.38     |
+| **Random Forest**   | **90%**  | 29%                 | **57%**   | 0.38     |
+
+* **Best Recall**: Logistic Regression (useful for lead targeting)
+* **Best Precision & Accuracy**: Random Forest (deployed model)
+
+---
+
+## 5.  Top Features (from Random Forest Importance)
+
+| Feature        | Description                            |
+| -------------- | -------------------------------------- |
+| `age`          | Client age                             |
+| `euribor3m`    | 3-month interest rate                  |
+| `campaign`     | Number of contacts in current campaign |
+| `emp.var.rate` | Employment variation rate              |
+| `nr.employed`  | Number of employees                    |
+| `housing_yes`  | Has a housing loan                     |
+| `loan_yes`     | Has a personal loan                    |
+| `pdays`        | Days since last contact                |
+
+These features were used in the deployed app for simplified but effective prediction.
+
+---
+
+## 6.  Recommendations to Marketing Team
+
+* Focus campaigns on:
+
+  * Clients **under 35 or over 60** (student/retired segments)
+  * Clients **without housing or personal loans**
+  * Periods of **favorable economic conditions** (e.g., low euribor3m)
+* Avoid over-contacting clients — high `campaign` values reduce success likelihood.
+
+---
+
+## 7.  Limitations & Next Steps
+
+### Limitations:
+
+* `duration` excluded despite being predictive — not usable in real-time.
+* Recall on the deployed model (Random Forest) is still low (29%).
+* Model assumes data stability (macroeconomic features may shift).
+
+### Next Steps:
+
+* Implement **threshold tuning** or **XGBoost** to improve recall.
+* Consider **real-time retraining** as economic conditions evolve.
+* Collect **additional behavioral data** (e.g., past responses, income).
+
+---
+
+## ✅ Project Files
+
+* `app.py` — Streamlit deployment app
+* `rf_model.pkl` — Saved model
+* `model_columns.pkl` — Feature list
+* `eda_modeling.ipynb` — EDA + training notebook
+* `requirements.txt` — Dependencies

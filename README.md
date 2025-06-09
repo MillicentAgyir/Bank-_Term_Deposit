@@ -84,7 +84,7 @@ The app uses these 8 key inputs to predict subscription likelihood:
 
 ---
 
-## ⚙️ How to Run Locally
+## How to Run Locally
 
 ```bash
 # Create virtual env and activate it

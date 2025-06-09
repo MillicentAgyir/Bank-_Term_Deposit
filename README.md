@@ -48,7 +48,7 @@ Help marketing teams identify potential clients more likely to subscribe to a te
 
 Try the live demo:
 
-👉 **[Launch App](https://your-username-your-app.streamlit.app)**
+👉 **[Launch App](https://millicentagyir-bank--term-deposit-app-dxtfqt.streamlit.app/))**
 
 ### User Inputs:
 The app uses these 8 key inputs to predict subscription likelihood:

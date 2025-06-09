@@ -99,7 +99,7 @@ streamlit run app.py
 
 🙋 Author
 Millicent Ama Agyir
-Feel free to reach out via agyirnanagmail.com for questions or feedback!
+Feel free to reach out via agyirnana@gmail.com for questions or feedback!
 
 ---
 
